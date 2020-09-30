@@ -1,27 +1,33 @@
 'use strict';
 
-window.renderStatistics = function (ctx, names, times) {
-  var CLOUD_WIDTH = 420;
-  var CLOUD_HEIGHT = 270;
-  var CLOUD_X = 100;
-  var CLOUD_Y = 10;
-  var CLOUD_COLOR = '#ffffff';
-  var GAP = 10;
-  var BAR_WIDTH = 40;
-  var BAR_HEIGHT = 150;
-  var GAP_BAR = 50;
-  var TEXT_GAP = 20;
-  var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
-  var FONT = '16px PT Mono';
-  var FONT_BASELINE = 'hanging';
-  var FONT_COLOR = '#000000';
-  var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
-  var PLAYER_NAME = 'Вы';
-  var PLAYER_COLOR = 'rgba(255, 0, 0, 1)';
+var CLOUD_WIDTH = 420;
+var CLOUD_HEIGHT = 270;
+var CLOUD_X = 100;
+var CLOUD_Y = 10;
+var CLOUD_COLOR = '#ffffff';
+var GAP = 10;
+var BAR_WIDTH = 40;
+var BAR_HEIGHT = 150;
+var GAP_BAR = 50;
+var TEXT_GAP = 20;
+var CLOUD_TEXT = 'Ура вы победили!\nСписок результатов:';
+var FONT = '16px PT Mono';
+var FONT_BASELINE = 'hanging';
+var FONT_COLOR = '#000000';
+var SHADOW_COLOR = 'rgba(0, 0, 0, 0.7)';
+var PLAYER_NAME = 'Вы';
+var PLAYER_COLOR = 'rgba(255, 0, 0, 1)';
 
-  function renderCloud(x, y, color) {
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+window.renderStatistics = function (ctx, names, times) {
+
+  function renderWindow() {
+    function renderCloud(x, y, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+    }
+
+    renderCloud(CLOUD_X + GAP, CLOUD_Y + GAP, SHADOW_COLOR);
+    renderCloud(CLOUD_X, CLOUD_Y, CLOUD_COLOR);
   }
 
   function renderText(text) {
@@ -38,7 +44,7 @@ window.renderStatistics = function (ctx, names, times) {
 
   var maxTime = Math.max.apply(null, times);
 
-  function renderColumn() {
+  function renderColumns() {
     for (var i = 0; i < names.length; i++) {
       ctx.fillStyle = FONT_COLOR;
       var barHeight = Math.round(times[i] * BAR_HEIGHT / maxTime);
@@ -58,8 +64,7 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
 
-  renderCloud(CLOUD_X + GAP, CLOUD_Y + GAP, SHADOW_COLOR);
-  renderCloud(CLOUD_X, CLOUD_Y, CLOUD_COLOR);
+  renderWindow();
   renderText(CLOUD_TEXT);
-  renderColumn();
+  renderColumns();
 };
