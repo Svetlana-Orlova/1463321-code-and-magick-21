@@ -9,23 +9,23 @@ var modalSetup = document.querySelector('.setup');
 var listWizards = document.querySelector('.setup-similar-list');
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-var getRandom = function (arr) {
+var getRandomElement = function (arr) {
   var randomElement = arr[Math.floor(Math.random() * arr.length)];
   return randomElement;
 };
 
 var getFullName = function () {
-  var fullName = getRandom(wizardNames) + ' ' + getRandom(wizardSurnames);
+  var fullName = getRandomElement(wizardNames) + ' ' + getRandomElement(wizardSurnames);
   return fullName;
 };
 
-var getData = function (amount) {
+var getWizards = function (amount) {
   var randomObjectArr = [];
   for (var i = 0; i < amount; i++) {
     randomObjectArr[i] = {
       name: getFullName(wizardNames, wizardSurnames),
-      coatColor: getRandom(wizardCoatColors),
-      eyesColor: getRandom(wizardEyesColors)
+      coatColor: getRandomElement(wizardCoatColors),
+      eyesColor: getRandomElement(wizardEyesColors)
     };
   }
   return randomObjectArr;
@@ -40,7 +40,7 @@ var renderWizard = function (wizard) {
 };
 
 var fragment = document.createDocumentFragment();
-var wizards = getData(quantity);
+var wizards = getWizards(quantity);
 for (var i = 0; i < quantity; i++) {
   fragment.appendChild(renderWizard(wizards[i]));
 }
