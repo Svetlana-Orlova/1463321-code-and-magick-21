@@ -16,7 +16,7 @@ var playerWizardEyes = modalSetup.querySelector('.wizard-eyes');
 var playerWizardFireball = modalSetup.querySelector('.setup-fireball-wrap');
 var eyesColorElement = modalSetup.querySelector('input[name="eyes-color"]');
 var coatColorElement = modalSetup.querySelector('input[name="coat-color"]');
-var fireballColor = modalSetup.querySelector('.fireball-color');
+var fireballColorElement = modalSetup.querySelector('.fireball-color');
 
 var getRandomElement = function (arr) {
   var randomElement = arr[Math.floor(Math.random() * arr.length)];
@@ -95,22 +95,34 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
+var changeColor = function (array, field, item) {
+  var color = getRandomElement(array);
+  for (i = 0; color === field.value; i++) {
+    if (color === field.value) {
+      color = getRandomElement(array);
+    } else {
+      break;
+    }
+  }
+  field.value = color;
+
+  if (item.tagName === 'DIV') {
+    item.style.backgroundColor = color;
+  } else {
+    item.style.fill = color;
+  }
+};
+
 playerWizardCoat.addEventListener('click', function () {
-  var randomColor = getRandomElement(WIZARD_COAT_COLORS);
-  playerWizardCoat.style.fill = randomColor;
-  coatColorElement.value = randomColor;
+  changeColor(WIZARD_COAT_COLORS, coatColorElement, playerWizardCoat);
 });
 
 playerWizardEyes.addEventListener('click', function () {
-  var randomColor = getRandomElement(WIZARD_EYES_COLORS);
-  playerWizardEyes.style.fill = randomColor;
-  eyesColorElement.value = randomColor;
+  changeColor(WIZARD_EYES_COLORS, eyesColorElement, playerWizardEyes);
 });
 
 playerWizardFireball.addEventListener('click', function () {
-  var randomColor = getRandomElement(WIZARD_FIREBALL_COLORS);
-  playerWizardFireball.style.background = randomColor;
-  fireballColor.value = randomColor;
+  changeColor(WIZARD_FIREBALL_COLORS, fireballColorElement, playerWizardFireball);
 });
 
 
