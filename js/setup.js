@@ -11,9 +11,9 @@ var setupOpen = document.querySelector('.setup-open');
 var setupClose = modalSetup.querySelector('.setup-close');
 var listWizards = modalSetup.querySelector('.setup-similar-list');
 var wizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-var playerWizardCoat = modalSetup.querySelector('.wizard-coat');
-var playerWizardEyes = modalSetup.querySelector('.wizard-eyes');
-var playerWizardFireball = modalSetup.querySelector('.setup-fireball-wrap');
+var playerWizardCoatElement = modalSetup.querySelector('.wizard-coat');
+var playerWizardEyesElement = modalSetup.querySelector('.wizard-eyes');
+var playerWizardFireballElement = modalSetup.querySelector('.setup-fireball-wrap');
 var eyesColorElement = modalSetup.querySelector('input[name="eyes-color"]');
 var coatColorElement = modalSetup.querySelector('input[name="coat-color"]');
 var fireballColorElement = modalSetup.querySelector('.fireball-color');
@@ -96,33 +96,29 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 var changeColor = function (array, field, item) {
-  var color = getRandomElement(array);
-  for (i = 0; color === field.value; i++) {
-    if (color === field.value) {
-      color = getRandomElement(array);
-    } else {
-      break;
-    }
-  }
-  field.value = color;
-
-  if (item.tagName === 'DIV') {
-    item.style.backgroundColor = color;
+  var currentColor = field.value
+  if (array.indexOf(currentColor) === array.length - 1) {
+    field.value = array[0];
   } else {
-    item.style.fill = color;
+    field.value = array[array.indexOf(currentColor) + 1];
+  }
+  if (item.tagName === 'DIV') {
+    item.style.backgroundColor = field.value;
+  } else {
+    item.style.fill = field.value;
   }
 };
 
-playerWizardCoat.addEventListener('click', function () {
-  changeColor(WIZARD_COAT_COLORS, coatColorElement, playerWizardCoat);
+playerWizardCoatElement.addEventListener('click', function () {
+  changeColor(WIZARD_COAT_COLORS, coatColorElement, playerWizardCoatElement);
 });
 
-playerWizardEyes.addEventListener('click', function () {
-  changeColor(WIZARD_EYES_COLORS, eyesColorElement, playerWizardEyes);
+playerWizardEyesElement.addEventListener('click', function () {
+  changeColor(WIZARD_EYES_COLORS, eyesColorElement, playerWizardEyesElement);
 });
 
-playerWizardFireball.addEventListener('click', function () {
-  changeColor(WIZARD_FIREBALL_COLORS, fireballColorElement, playerWizardFireball);
+playerWizardFireballElement.addEventListener('click', function () {
+  changeColor(WIZARD_FIREBALL_COLORS, fireballColorElement, playerWizardFireballElement);
 });
 
 
