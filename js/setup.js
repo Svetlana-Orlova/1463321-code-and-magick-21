@@ -96,7 +96,7 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 var changeColor = function (array, field, item) {
-  var currentColor = field.value
+  var currentColor = field.value;
   if (array.indexOf(currentColor) === array.length - 1) {
     field.value = array[0];
   } else {
